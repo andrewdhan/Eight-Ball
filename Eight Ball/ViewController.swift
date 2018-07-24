@@ -12,13 +12,26 @@ class ViewController: UIViewController {
 
 
     @IBAction func flipEightBall(_ sender: Any) {
-        let index = Int(arc4random_uniform(UInt32(answers.count)))
+
+        answerLabel.text = generateAnswer()
+    }
+    
+    private func generateAnswer() ->String{
         
-        let answer = answers[index]
-        answerLabel.text = answer
+        var result = ""
+        
+        repeat{
+            let index = Int(arc4random_uniform(UInt32(answers.count)))
+            result =  answers[index]
+        } while result == lastAnswer
+        
+        lastAnswer = result
+        
+        return result
     }
     @IBOutlet weak var answerLabel: UILabel!
     
+    private var lastAnswer = "";
     private let answers = [
         "It is certain.",
         "It is decidedly so.",
